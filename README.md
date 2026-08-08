@@ -1,12 +1,21 @@
 # BTP Job Scheduler Service
 
 ![OpenAPI](https://img.shields.io/badge/OpenAPI-3.0.3-6BA539?logo=openapiinitiative&logoColor=white)
-![Formats](https://img.shields.io/badge/formats-JSON%20%7C%20YAML-blue)
+![OData](https://img.shields.io/badge/OData-V2%20EDMX-orange)
+![Formats](https://img.shields.io/badge/formats-JSON%20%7C%20YAML%20%7C%20EDMX-blue)
 ![Status](https://img.shields.io/badge/spec%20lint-passing-brightgreen)
 
-OpenAPI metadata for the **SAP Job Scheduling Service REST API** (SAP BTP) — create, schedule, monitor, and secure jobs via HTTP endpoints or Cloud Foundry tasks.
+API metadata for the **SAP Job Scheduling Service REST API** (SAP BTP) — create, schedule, monitor, and secure jobs via HTTP endpoints or Cloud Foundry tasks.
 
-This README documents a validation pass performed on `sap-btpjss-admin-v1.json` / `sap-btpjss-admin-v1.yaml`: the errors found, why each one matters, and exactly how it was fixed.
+This repo holds the machine-readable description of that API in three formats:
+
+| File | Format | Purpose |
+|---|---|---|
+| [`sap-btpjss-admin-v1.json`](./sap-btpjss-admin-v1.json) | OpenAPI 3.0.3 (JSON) | REST API definition |
+| [`sap-btpjss-admin-v1.yaml`](./sap-btpjss-admin-v1.yaml) | OpenAPI 3.0.3 (YAML) | Same definition, YAML form |
+| [`sap-btpjss-admin-v1.edmx`](./sap-btpjss-admin-v1.edmx) | OData V2 EDMX | `Job` / `Schedule` / `RunLog` entity model, for SAP API Business Hub registration |
+
+The sections below document a validation pass performed on the OpenAPI files: the errors found, why each one matters, and exactly how it was fixed.
 
 ---
 
