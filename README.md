@@ -94,7 +94,7 @@ These 4 locations were fixed identically in both `sap-btpjss-admin-v1.json` and 
 ]
 ```
 
-Same effective validation (string, object, or `null`) — now spec-compliant.
+The set of accepted values is unchanged — a `date-time` string, a `DateTimeObject`, or `null` — but the schema is now spec-compliant.
 
 ### 3. Examples that don't match their declared `format` (Warning)
 
