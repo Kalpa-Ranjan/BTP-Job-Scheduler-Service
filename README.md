@@ -75,6 +75,12 @@ No real endpoint URL changed — this only restructured the *documentation* to b
 
 OpenAPI 3.0 requires `type` to be present whenever `nullable` is used — a bare `{ "nullable": true }` schema is invalid and most tooling either errors out or silently ignores it.
 
+**Removed from 4 places** (same 4 locations in both `sap-btpjss-admin-v1.json` and `sap-btpjss-admin-v1.yaml`):
+1. `components.schemas.CreateJobRequest.properties.startTime`
+2. `components.schemas.CreateJobRequest.properties.endTime`
+3. `components.schemas.UpdateJobRequest.properties.startTime`
+4. `components.schemas.UpdateJobRequest.properties.endTime`
+
 **How it was fixed:** the bare `nullable` branch was removed, and `nullable: true` was attached directly to the schema that already had `type: string`:
 
 ```json
