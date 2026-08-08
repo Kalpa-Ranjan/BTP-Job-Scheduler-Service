@@ -94,8 +94,6 @@ These 4 locations were fixed identically in both `sap-btpjss-admin-v1.json` and 
 ]
 ```
 
-In practice, this doesn't change what a client can send: a `date-time` string, `null`, or a `DateTimeObject`.
-
 ### 3. Examples that don't match their declared `format` (Warning)
 
 **What was wrong:** several `example` values were tagged `format: date-time` or `format: uuid` but didn't actually satisfy that format:
