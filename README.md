@@ -94,7 +94,7 @@ These 4 locations were fixed identically in both `sap-btpjss-admin-v1.json` and 
 ]
 ```
 
-The property still accepts the same values as before — a `date-time` string, `null`, or a `DateTimeObject` — just expressed as two valid `oneOf` branches instead of three, with `null` folded into the string branch.
+In practice, this doesn't change what a client can send: a `date-time` string, `null`, or a `DateTimeObject`.
 
 ### 3. Examples that don't match their declared `format` (Warning)
 
