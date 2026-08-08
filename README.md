@@ -33,12 +33,12 @@ The sections below document a validation pass performed on the OpenAPI files: th
 
 ## Errors found
 
-| # | Issue | Rule | Severity | Occurrences |
-|---|-------|------|----------|:-----------:|
-| 1 | `/jobs/{jobId}` and `/jobs/{name}` are identical path templates | `no-identical-paths` | 🔴 Error | 1 |
-| 2 | `nullable: true` used without a sibling `type` | `nullable-type-sibling` | 🔴 Error | 4 |
-| 3 | Example values didn't match their declared `format` (`date-time`, `uuid`) | `no-invalid-schema-examples` | 🟡 Warning | 12 |
-| 4 | `endTime` marked `required` but absent from every request example | `no-invalid-media-type-examples` | 🟡 Warning | 4 |
+| # | Issue | Previous code | Updated code | Severity |
+|---|-------|----------------|----------------|:---:|
+| 1 | `/jobs/{jobId}` and `/jobs/{name}` are identical path templates *(1 pair)* | `PUT /jobs/{jobId}`<br>`PUT /jobs/{name}` *(two separate path items)* | `PUT /jobs/{jobId}` *(one path item; param accepts a numeric ID or a job name)* | 🔴 Error |
+| 2 | `nullable: true` used without a sibling `type` *(4 occurrences)* | `{ "nullable": true }` | `{ "type": "string", "format": "date-time", "nullable": true }` | 🔴 Error |
+| 3 | Example values didn't match their declared `format` (`date-time`, `uuid`) *(12 occurrences)* | `"2015-10-20 04:30:00"` | `"2015-10-20T04:30:00Z"` | 🟡 Warning |
+| 4 | `endTime` marked `required` but absent from every request example *(4 examples)* | *(key omitted from example body)* | `"endTime": null` | 🟡 Warning |
 
 <br>
 
