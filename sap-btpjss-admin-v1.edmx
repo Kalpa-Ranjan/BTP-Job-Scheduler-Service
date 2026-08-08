@@ -1,0 +1,147 @@
+<edmx:Edmx xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" Version="1.0">
+<edmx:DataServices xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" m:DataServiceVersion="2.0">
+<Schema xmlns="http://schemas.microsoft.com/ado/2008/09/edm" Namespace="com.sap.btpjss.api">
+<EntityType Name="Job">
+<Key>
+<PropertyRef Name="Id"/>
+</Key>
+<Property Name="Id" Type="Edm.Int32" Nullable="false"/>
+<Property Name="Name" Type="Edm.String" Nullable="true"/>
+<Property Name="Description" Type="Edm.String" Nullable="true"/>
+<Property Name="Action" Type="Edm.String" Nullable="true"/>
+<Property Name="Active" Type="Edm.Boolean" Nullable="true"/>
+<Property Name="HttpMethod" Type="Edm.String" Nullable="true"/>
+<Property Name="User" Type="Edm.String" Nullable="true"/>
+<Property Name="StartTime" Type="Edm.DateTime" Nullable="true"/>
+<Property Name="EndTime" Type="Edm.DateTime" Nullable="true"/>
+<Property Name="SignatureVersion" Type="Edm.Int32" Nullable="true"/>
+<Property Name="JobType" Type="Edm.String" Nullable="true"/>
+<Property Name="SubDomain" Type="Edm.String" Nullable="true"/>
+<Property Name="CreatedAt" Type="Edm.DateTime" Nullable="true"/>
+<Property Name="ActiveCount" Type="Edm.Int32" Nullable="true"/>
+<Property Name="InactiveCount" Type="Edm.Int32" Nullable="true"/>
+<Property Name="AnsConfig" Type="com.sap.btpjss.api.ANSConfig" Nullable="true"/>
+<Property Name="CalmConfig" Type="com.sap.btpjss.api.CalmConfig" Nullable="true"/>
+<NavigationProperty Name="Schedules" Relationship="com.sap.btpjss.api.Job_2_r_Schedules" FromRole="Job" ToRole="r_Schedules"/>
+</EntityType>
+<EntityType Name="Schedule">
+<Key>
+<PropertyRef Name="ScheduleId"/>
+<PropertyRef Name="JobId"/>
+</Key>
+<Property Name="ScheduleId" Type="Edm.Guid" Nullable="false"/>
+<Property Name="JobId" Type="Edm.Int32" Nullable="false"/>
+<Property Name="Description" Type="Edm.String" Nullable="true"/>
+<Property Name="Data" Type="Edm.String" Nullable="true"/>
+<Property Name="Type" Type="Edm.String" Nullable="true"/>
+<Property Name="Cron" Type="Edm.String" Nullable="true"/>
+<Property Name="Time" Type="Edm.String" Nullable="true"/>
+<Property Name="RepeatInterval" Type="Edm.String" Nullable="true"/>
+<Property Name="RepeatAt" Type="Edm.String" Nullable="true"/>
+<Property Name="Active" Type="Edm.Boolean" Nullable="true"/>
+<Property Name="StartTime" Type="Edm.DateTime" Nullable="true"/>
+<Property Name="EndTime" Type="Edm.DateTime" Nullable="true"/>
+<Property Name="NextRunAt" Type="Edm.DateTime" Nullable="true"/>
+<Property Name="ModifiedAt" Type="Edm.DateTime" Nullable="true"/>
+<NavigationProperty Name="RunLogs" Relationship="com.sap.btpjss.api.Schedule_2_r_RunLogs" FromRole="Schedule" ToRole="r_RunLogs"/>
+</EntityType>
+<EntityType Name="RunLog">
+<Key>
+<PropertyRef Name="RunId"/>
+<PropertyRef Name="ScheduleId"/>
+<PropertyRef Name="JobId"/>
+</Key>
+<Property Name="RunId" Type="Edm.Guid" Nullable="false"/>
+<Property Name="ScheduleId" Type="Edm.Guid" Nullable="false"/>
+<Property Name="JobId" Type="Edm.Int32" Nullable="false"/>
+<Property Name="RunText" Type="Edm.String" Nullable="true"/>
+<Property Name="HttpStatus" Type="Edm.Int32" Nullable="true"/>
+<Property Name="ExecutionTimestamp" Type="Edm.DateTime" Nullable="true"/>
+<Property Name="RunStatus" Type="Edm.String" Nullable="true"/>
+<Property Name="RunState" Type="Edm.String" Nullable="true"/>
+<Property Name="ScheduleTimestamp" Type="Edm.DateTime" Nullable="true"/>
+<Property Name="CompletionTimestamp" Type="Edm.DateTime" Nullable="true"/>
+</EntityType>
+<ComplexType Name="ANSConfig">
+<Property Name="OnSuccess" Type="Edm.Boolean" Nullable="true"/>
+<Property Name="OnError" Type="Edm.Boolean" Nullable="true"/>
+<Property Name="OnDelay" Type="Edm.Boolean" Nullable="true"/>
+</ComplexType>
+<ComplexType Name="CalmConfig">
+<Property Name="Enabled" Type="Edm.Boolean" Nullable="false"/>
+</ComplexType>
+<ComplexType Name="GlobalConfigEntry">
+<Property Name="ConfigName" Type="Edm.String" Nullable="true"/>
+<Property Name="ConfigValue" Type="Edm.String" Nullable="true"/>
+</ComplexType>
+<ComplexType Name="JobCount">
+<Property Name="Active" Type="Edm.Int32" Nullable="true"/>
+<Property Name="Inactive" Type="Edm.Int32" Nullable="true"/>
+</ComplexType>
+<Association Name="Job_2_r_Schedules">
+<End Type="com.sap.btpjss.api.Job" Multiplicity="1" Role="Job"/>
+<End Type="com.sap.btpjss.api.Schedule" Multiplicity="*" Role="r_Schedules"/>
+</Association>
+<Association Name="Schedule_2_r_RunLogs">
+<End Type="com.sap.btpjss.api.Schedule" Multiplicity="1" Role="Schedule"/>
+<End Type="com.sap.btpjss.api.RunLog" Multiplicity="*" Role="r_RunLogs"/>
+</Association>
+<EntityContainer Name="DefaultContainer" m:IsDefaultEntityContainer="true">
+<EntitySet Name="Jobs" EntityType="com.sap.btpjss.api.Job"/>
+<EntitySet Name="Schedules" EntityType="com.sap.btpjss.api.Schedule"/>
+<EntitySet Name="RunLogs" EntityType="com.sap.btpjss.api.RunLog"/>
+<AssociationSet Name="Job_2_r_Schedules" Association="com.sap.btpjss.api.Job_2_r_Schedules">
+<End EntitySet="Jobs" Role="Job"/>
+<End EntitySet="Schedules" Role="r_Schedules"/>
+</AssociationSet>
+<AssociationSet Name="Schedule_2_r_RunLogs" Association="com.sap.btpjss.api.Schedule_2_r_RunLogs">
+<End EntitySet="Schedules" Role="Schedule"/>
+<End EntitySet="RunLogs" Role="r_RunLogs"/>
+</AssociationSet>
+<FunctionImport Name="ConfigureJobByName" ReturnType="com.sap.btpjss.api.Job" EntitySet="Jobs" m:HttpMethod="POST">
+<Parameter Name="Name" Type="Edm.String" Nullable="false"/>
+<Parameter Name="Description" Type="Edm.String" Nullable="false"/>
+<Parameter Name="Action" Type="Edm.String" Nullable="false"/>
+<Parameter Name="Active" Type="Edm.Boolean" Nullable="false"/>
+<Parameter Name="HttpMethod" Type="Edm.String" Nullable="false"/>
+<Parameter Name="StartTime" Type="Edm.DateTime" Nullable="true"/>
+<Parameter Name="EndTime" Type="Edm.DateTime" Nullable="true"/>
+<Parameter Name="AnsOnSuccess" Type="Edm.Boolean" Nullable="true"/>
+<Parameter Name="AnsOnError" Type="Edm.Boolean" Nullable="true"/>
+<Parameter Name="AnsOnDelay" Type="Edm.Boolean" Nullable="true"/>
+<Parameter Name="CalmEnabled" Type="Edm.Boolean" Nullable="true"/>
+</FunctionImport>
+<FunctionImport Name="DeleteAllJobSchedules" ReturnType="Edm.Boolean" m:HttpMethod="POST">
+<Parameter Name="JobId" Type="Edm.Int32" Nullable="false"/>
+</FunctionImport>
+<FunctionImport Name="SetAllSchedulesActivationStatus" ReturnType="Edm.Boolean" m:HttpMethod="POST">
+<Parameter Name="JobId" Type="Edm.Int32" Nullable="false"/>
+<Parameter Name="ActivationStatus" Type="Edm.Boolean" Nullable="false"/>
+</FunctionImport>
+<FunctionImport Name="UpdateJobRunLog" ReturnType="Edm.Boolean" m:HttpMethod="POST">
+<Parameter Name="JobId" Type="Edm.Int32" Nullable="false"/>
+<Parameter Name="ScheduleId" Type="Edm.Guid" Nullable="false"/>
+<Parameter Name="RunId" Type="Edm.Guid" Nullable="false"/>
+<Parameter Name="Success" Type="Edm.Boolean" Nullable="false"/>
+<Parameter Name="Message" Type="Edm.String" Nullable="true"/>
+</FunctionImport>
+<FunctionImport Name="GetGlobalParameters" ReturnType="Collection(com.sap.btpjss.api.GlobalConfigEntry)" m:HttpMethod="GET"/>
+<FunctionImport Name="UpdateGlobalParameters" ReturnType="Edm.Boolean" m:HttpMethod="POST">
+<Parameter Name="AsyncExecTimeout" Type="Edm.String" Nullable="false"/>
+</FunctionImport>
+<FunctionImport Name="GetJobCount" ReturnType="com.sap.btpjss.api.JobCount" m:HttpMethod="GET"/>
+<FunctionImport Name="SearchJobs" ReturnType="Collection(com.sap.btpjss.api.Job)" EntitySet="Jobs" m:HttpMethod="GET">
+<Parameter Name="Q" Type="Edm.String" Nullable="false"/>
+<Parameter Name="PageSize" Type="Edm.Int32" Nullable="true"/>
+<Parameter Name="Offset" Type="Edm.Int32" Nullable="true"/>
+<Parameter Name="DisplaySchedules" Type="Edm.Boolean" Nullable="true"/>
+</FunctionImport>
+<FunctionImport Name="SearchSchedules" ReturnType="Collection(com.sap.btpjss.api.Schedule)" EntitySet="Schedules" m:HttpMethod="GET">
+<Parameter Name="Q" Type="Edm.String" Nullable="false"/>
+<Parameter Name="PageSize" Type="Edm.Int32" Nullable="true"/>
+<Parameter Name="Offset" Type="Edm.Int32" Nullable="true"/>
+</FunctionImport>
+</EntityContainer>
+</Schema>
+</edmx:DataServices>
+</edmx:Edmx>
