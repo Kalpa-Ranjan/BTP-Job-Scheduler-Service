@@ -96,17 +96,18 @@ Same effective validation (string, object, or `null`) — now spec-compliant.
 
 **What was wrong:** several `example` values were tagged `format: date-time` or `format: uuid` but didn't actually satisfy that format:
 
-| Field | Before | After | Problem |
-|---|---|---|---|
-| `createdAt` (Job) | `"1970-01-01 12:55:55"` | `"1970-01-01T12:55:55Z"` | space instead of `T`, no timezone |
-| `startTime` (Schedule) | `"2015-10-20 04:30:00"` | `"2015-10-20T04:30:00Z"` | space instead of `T`, no timezone |
-| `nextRunAt` (Schedule) | `"2017-08-11 10:00:00"` | `"2017-08-11T10:00:00Z"` | space instead of `T`, no timezone |
-| `modifiedAt` (Schedule) | `"2017-08-11 09:55:00"` | `"2017-08-11T09:55:00Z"` | space instead of `T`, no timezone |
-| `executionTimestamp`, `completionTimestamp` (RunLog) | `"2015-11-14T04:19:22"` | `"2015-11-14T04:19:22Z"` | has `T`, still missing timezone offset |
-| `scheduleTimestamp` (RunLog) | `"2015-11-14T04:17:22"` | `"2015-11-14T04:17:22Z"` | has `T`, still missing timezone offset |
-| `startTime` (SearchScheduleItem/Result) | `"2025-01-01 00:00:00"` | `"2025-01-01T00:00:00Z"` | space instead of `T`, no timezone |
-| `nextRunAt` (SearchScheduleItem/Result) | `"2025-08-11 10:00:00"` | `"2025-08-11T10:00:00Z"` | space instead of `T`, no timezone |
-| `runId` (RunLog) | `"56468DB7B133728EE10000000A61A0D8"` | `"56468db7-b133-728e-e100-00000a61a0d8"` | valid 32 hex chars, but missing UUID dashes |
+| Field | Before | After | Problem | Occurrences |
+|---|---|---|---|:---:|
+| `createdAt` (Job) | `"1970-01-01 12:55:55"` | `"1970-01-01T12:55:55Z"` | space instead of `T`, no timezone | 1 |
+| `startTime` (Schedule) | `"2015-10-20 04:30:00"` | `"2015-10-20T04:30:00Z"` | space instead of `T`, no timezone | 1 |
+| `nextRunAt` (Schedule) | `"2017-08-11 10:00:00"` | `"2017-08-11T10:00:00Z"` | space instead of `T`, no timezone | 1 |
+| `modifiedAt` (Schedule) | `"2017-08-11 09:55:00"` | `"2017-08-11T09:55:00Z"` | space instead of `T`, no timezone | 1 |
+| `executionTimestamp`, `completionTimestamp` (RunLog) | `"2015-11-14T04:19:22"` | `"2015-11-14T04:19:22Z"` | has `T`, still missing timezone offset | 2 |
+| `scheduleTimestamp` (RunLog) | `"2015-11-14T04:17:22"` | `"2015-11-14T04:17:22Z"` | has `T`, still missing timezone offset | 1 |
+| `startTime` (SearchScheduleItem/Result) | `"2025-01-01 00:00:00"` | `"2025-01-01T00:00:00Z"` | space instead of `T`, no timezone | 2 |
+| `nextRunAt` (SearchScheduleItem/Result) | `"2025-08-11 10:00:00"` | `"2025-08-11T10:00:00Z"` | space instead of `T`, no timezone | 2 |
+| `runId` (RunLog) | `"56468DB7B133728EE10000000A61A0D8"` | `"56468db7-b133-728e-e100-00000a61a0d8"` | valid 32 hex chars, but missing UUID dashes | 1 |
+| **Total** | | | | **12** |
 
 `format: date-time` requires full RFC 3339 (`T` separator **and** a timezone offset/`Z`).
 
