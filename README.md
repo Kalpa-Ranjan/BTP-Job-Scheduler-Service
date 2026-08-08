@@ -110,7 +110,7 @@ Same effective validation (string, object, or `null`) — now spec-compliant.
 
 `format: date-time` requires full RFC 3339 (`T` separator **and** a timezone offset/`Z`).
 
-**How it was fixed:** dates were reformatted to RFC 3339 UTC, e.g. `2015-10-20T04:30:00Z`; the `runId` example was re-grouped into standard `8-4-4-4-12` UUID form: `56468db7-b133-728e-e100-00000a61a0d8`.
+**How it was fixed:** each of the 11 `date-time` examples above was rewritten to full RFC 3339 UTC — adding the missing `T` separator, the missing trailing `Z` offset, or both (e.g. `"2015-10-20 04:30:00"` → `"2015-10-20T04:30:00Z"`). The one `runId` example was reformatted into standard `8-4-4-4-12` UUID form: `56468db7-b133-728e-e100-00000a61a0d8`. The same fixes were applied identically in both `sap-btpjss-admin-v1.json` and `sap-btpjss-admin-v1.yaml`.
 
 ### 4. Required field missing from its own examples (Warning)
 
