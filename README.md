@@ -12,7 +12,6 @@ This README documents a validation pass performed on `sap-btpjss-admin-v1.json` 
 
 ## Table of Contents
 
-- [How the spec was validated](#how-the-spec-was-validated)
 - [Errors found](#errors-found)
   - [1. Identical/ambiguous paths](#1-identicalambiguous-paths-error)
   - [2. `nullable` used without `type`](#2-nullable-used-without-type-error)
@@ -20,26 +19,6 @@ This README documents a validation pass performed on `sap-btpjss-admin-v1.json` 
   - [4. Required field missing from its own examples](#4-required-field-missing-from-its-own-examples-warning)
 - [Before / after](#before--after)
 - [Summary](#summary)
-
----
-
-## How the spec was validated
-
-Validation was done in two passes, step by step:
-
-1. **Schema-level validation** — `openapi-spec-validator` (Python) confirmed both files parse as structurally valid OpenAPI 3.0.3 documents.
-2. **Best-practice linting** — [`@redocly/cli lint`](https://redocly.com/docs/cli/) was run against the recommended ruleset, which catches real-world issues schema validation alone misses (ambiguous routes, malformed examples, etc.).
-3. Every issue the linter reported was fixed, then **both passes were re-run** to confirm a clean result (0 errors, 0 warnings) on both the JSON and YAML files.
-4. A final cross-check confirmed the JSON and YAML files are byte-for-byte structurally equivalent after the fixes.
-
-```bash
-# Reproduce locally
-pip install openapi-spec-validator
-python -m openapi_spec_validator sap-btpjss-admin-v1.json
-
-npx @redocly/cli lint sap-btpjss-admin-v1.json --format=stylish
-npx @redocly/cli lint sap-btpjss-admin-v1.yaml --format=stylish
-```
 
 ---
 
