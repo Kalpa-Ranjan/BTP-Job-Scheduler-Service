@@ -94,7 +94,7 @@ These 4 locations were fixed identically in both `sap-btpjss-admin-v1.json` and 
 ]
 ```
 
-The `oneOf` still has exactly two branches, matching the original intent — a nullable `date-time` string, or a `DateTimeObject` — but it's now spec-compliant.
+The property still accepts the same values as before — a `date-time` string, `null`, or a `DateTimeObject` — just expressed as two valid `oneOf` branches instead of three, with `null` folded into the string branch.
 
 ### 3. Examples that don't match their declared `format` (Warning)
 
