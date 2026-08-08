@@ -53,17 +53,16 @@ PUT /jobs/{name}    (create/update a job by name)
 
 The OpenAPI Specification explicitly states that path templates with the same segment structure but *different parameter names* count as the **same path** — `/jobs/{jobId}` and `/jobs/{name}` are indistinguishable to a router. This is why it's flagged as an error, not a style nit: most API gateways, codegen tools, and mock servers can only bind **one** operation to that URL shape. A client calling the "other" one is liable to get routed to the wrong operation entirely — commonly surfacing as a **404**.
 
-**How it was fixed:** the two `PUT` operations were merged into a single operation on `/jobs/{jobId}`:
+| Aspect | Location | Before | After | Occurrences |
+|---|---|---|---|:---:|
+| Path items | `paths` | Two separate items: `PUT /jobs/{jobId}` and `PUT /jobs/{name}` | One item: `PUT /jobs/{jobId}` | 1 |
+| Path parameter schema | `put.parameters[0].schema` | `{ "type": "integer" }` | `oneOf: [{ "type": "integer" }, { "type": "string" }]` | 1 |
+| Request body schema | `put.requestBody` | `$ref: '#/components/schemas/UpdateJobRequest'` | `anyOf: [UpdateJobRequest, CreateJobRequest]` | 1 |
+| `operationId` | `put.operationId` | `updateJobById` and `updateJobByName` (two ids) | `updateJob` (one id) | 1 |
+| Success responses | `put.responses` | `200` → `SuccessResponse` (by ID) **or** `200`/`201` → `JobResponse` (by name), split across two operations | `200` → `anyOf: [SuccessResponse, JobResponse]`, `201` → `JobResponse`, on one operation | 1 |
+| **Total** | | | | **5** |
 
-| Aspect | Before | After |
-|---|---|---|
-| Path items | Two separate items: `PUT /jobs/{jobId}` and `PUT /jobs/{name}` | One item: `PUT /jobs/{jobId}` |
-| Path parameter schema | `{ "type": "integer" }` | `oneOf: [{ "type": "integer" }, { "type": "string" }]` |
-| Request body schema | `$ref: '#/components/schemas/UpdateJobRequest'` | `anyOf: [UpdateJobRequest, CreateJobRequest]` |
-| `operationId` | `updateJobById` and `updateJobByName` (two ids) | `updateJob` (one id) |
-| Success responses | `200` → `SuccessResponse` (by ID) **or** `200`/`201` → `JobResponse` (by name), split across two operations | `200` → `anyOf: [SuccessResponse, JobResponse]`, `201` → `JobResponse`, on one operation |
-
-No real endpoint URL changed — this only restructured the *documentation* to be unambiguous.
+**How it was fixed:** the two `PUT` operations were merged into a single operation on `/jobs/{jobId}`, combining the path parameter, request body, and response schemas as shown above. No real endpoint URL changed — this only restructured the *documentation* to be unambiguous.
 
 ### 2. `nullable` used without `type` (Error)
 
