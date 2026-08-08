@@ -115,7 +115,15 @@ Same effective validation (string, object, or `null`) — now spec-compliant.
 
 ### 4. Required field missing from its own examples (Warning)
 
-**What was wrong:** `CreateJobRequest.required` lists `endTime` as mandatory, but none of the four documented request-body examples (`cronJob`, `oneTimeJob`, `createCronJob`, `updateExistingJob`) included it — so the spec's own examples didn't validate against its own schema.
+**What was wrong:** `CreateJobRequest.required` lists `endTime` as mandatory, but none of the four documented request-body examples included it — so the spec's own examples didn't validate against its own schema.
+
+| Example | Location | Before | After | Occurrences |
+|---|---|---|---|:---:|
+| `cronJob` | `POST /jobs` request body | *(`endTime` key omitted)* | `"endTime": null` | 1 |
+| `oneTimeJob` | `POST /jobs` request body | *(`endTime` key omitted)* | `"endTime": null` | 1 |
+| `createCronJob` | `PUT /jobs/{jobId}` request body | *(`endTime` key omitted)* | `"endTime": null` | 1 |
+| `updateExistingJob` | `PUT /jobs/{jobId}` request body | *(`endTime` key omitted)* | `"endTime": null` | 1 |
+| **Total** | | | | **4** |
 
 **How it was fixed:** added `"endTime": null` to each of the four examples, consistent with `endTime` being required-but-nullable.
 
