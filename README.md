@@ -77,10 +77,10 @@ OpenAPI 3.0 requires `type` to be present whenever `nullable` is used — a bare
 
 | Field | Location | Before | After | Occurrences |
 |---|---|---|---|:---:|
-| `startTime` | `CreateJobRequest` | `{ "nullable": true }` as a bare 3rd `oneOf` branch | `nullable: true` merged into the `{ "type": "string", "format": "date-time" }` branch | 1 |
-| `endTime` | `CreateJobRequest` | `{ "nullable": true }` as a bare 3rd `oneOf` branch | `nullable: true` merged into the `{ "type": "string", "format": "date-time" }` branch | 1 |
-| `startTime` | `UpdateJobRequest` | `{ "nullable": true }` as a bare 3rd `oneOf` branch | `nullable: true` merged into the `{ "type": "string", "format": "date-time" }` branch | 1 |
-| `endTime` | `UpdateJobRequest` | `{ "nullable": true }` as a bare 3rd `oneOf` branch | `nullable: true` merged into the `{ "type": "string", "format": "date-time" }` branch | 1 |
+| `startTime` | `CreateJobRequest` | `{ "nullable": true }` | `{ "type": "string", "format": "date-time", "nullable": true }` | 1 |
+| `endTime` | `CreateJobRequest` | `{ "nullable": true }` | `{ "type": "string", "format": "date-time", "nullable": true }` | 1 |
+| `startTime` | `UpdateJobRequest` | `{ "nullable": true }` | `{ "type": "string", "format": "date-time", "nullable": true }` | 1 |
+| `endTime` | `UpdateJobRequest` | `{ "nullable": true }` | `{ "type": "string", "format": "date-time", "nullable": true }` | 1 |
 | **Total** | | | | **4** |
 
 These 4 locations were fixed identically in both `sap-btpjss-admin-v1.json` and `sap-btpjss-admin-v1.yaml`.
