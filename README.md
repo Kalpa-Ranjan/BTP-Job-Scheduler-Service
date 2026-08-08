@@ -94,7 +94,7 @@ These 4 locations were fixed identically in both `sap-btpjss-admin-v1.json` and 
 ]
 ```
 
-The set of accepted values is unchanged — a `date-time` string, a `DateTimeObject`, or `null` — but the schema is now spec-compliant.
+The `oneOf` still has exactly two branches, matching the original intent — a nullable `date-time` string, or a `DateTimeObject` — but it's now spec-compliant.
 
 ### 3. Examples that don't match their declared `format` (Warning)
 
