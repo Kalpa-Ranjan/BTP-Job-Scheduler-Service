@@ -15,7 +15,7 @@ This repo holds the machine-readable description of that API in three formats:
 | [`sap-btpjss-admin-v1.yaml`](./sap-btpjss-admin-v1.yaml) | OpenAPI 3.0.3 (YAML) | Same definition, YAML form |
 | [`sap-btpjss-admin-v1.edmx`](./sap-btpjss-admin-v1.edmx) | OData V2 EDMX | `Job` / `Schedule` / `RunLog` entity model, for SAP API Business Hub registration |
 
-The sections below document a validation pass performed on the OpenAPI files: the errors found, why each one matters, and exactly how it was fixed.
+The sections below document a validation pass performed on the OpenAPI files: the errors found, why each one matters, and exactly how each was fixed.
 
 ---
 
