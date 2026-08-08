@@ -75,11 +75,15 @@ No real endpoint URL changed — this only restructured the *documentation* to b
 
 OpenAPI 3.0 requires `type` to be present whenever `nullable` is used — a bare `{ "nullable": true }` schema is invalid and most tooling either errors out or silently ignores it.
 
-**Removed from 4 places** (same 4 locations in both `sap-btpjss-admin-v1.json` and `sap-btpjss-admin-v1.yaml`):
-1. `components.schemas.CreateJobRequest.properties.startTime`
-2. `components.schemas.CreateJobRequest.properties.endTime`
-3. `components.schemas.UpdateJobRequest.properties.startTime`
-4. `components.schemas.UpdateJobRequest.properties.endTime`
+| Field | Location | Before | After | Occurrences |
+|---|---|---|---|:---:|
+| `startTime` | `CreateJobRequest` | `{ "nullable": true }` as a bare 3rd `oneOf` branch | `nullable: true` merged into the `{ "type": "string", "format": "date-time" }` branch | 1 |
+| `endTime` | `CreateJobRequest` | `{ "nullable": true }` as a bare 3rd `oneOf` branch | `nullable: true` merged into the `{ "type": "string", "format": "date-time" }` branch | 1 |
+| `startTime` | `UpdateJobRequest` | `{ "nullable": true }` as a bare 3rd `oneOf` branch | `nullable: true` merged into the `{ "type": "string", "format": "date-time" }` branch | 1 |
+| `endTime` | `UpdateJobRequest` | `{ "nullable": true }` as a bare 3rd `oneOf` branch | `nullable: true` merged into the `{ "type": "string", "format": "date-time" }` branch | 1 |
+| **Total** | | | | **4** |
+
+These 4 locations were fixed identically in both `sap-btpjss-admin-v1.json` and `sap-btpjss-admin-v1.yaml`.
 
 **How it was fixed:** the bare `nullable` branch was removed, and `nullable: true` was attached directly to the schema that already had `type: string`:
 
